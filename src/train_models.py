@@ -55,8 +55,11 @@ def evaluate(y_true, y_pred, y_proba) -> dict:
     }
 
 
-def main():
-    df = load_data()
+def train_and_evaluate(df: pd.DataFrame) -> dict:
+    """Train all three models on the given dataframe and return everything the app needs,
+    without touching disk. Used both by main() (which then persists to models/) and by
+    app.py as a cold-start fallback on deployments where models/ isn't pre-built (e.g.
+    Streamlit Community Cloud, where the 99MB random_forest.joblib isn't checked into git)."""
     X = df[FEATURE_COLS]
     y = df[TARGET_COL]
 
@@ -64,6 +67,7 @@ def main():
         X, y, test_size=0.2, random_state=42, stratify=y
     )
 
+    pipelines = {}
     results = {}
     for name, clf in get_models().items():
         pipe = Pipeline(steps=[("prep", build_preprocessor()), ("clf", clf)])
@@ -73,25 +77,40 @@ def main():
         y_proba = pipe.predict_proba(X_test)[:, 1]
         metrics = evaluate(y_test, y_pred, y_proba)
         results[name] = metrics
+        pipelines[name] = pipe
 
+    domain_stats = fit_domain_stats(X_train.join(y_train).drop(columns=[TARGET_COL]))
+    best_model = max(results, key=lambda k: results[k]["f1"])
+    metrics_df = pd.DataFrame(results).T
+
+    return {
+        "pipelines": pipelines,
+        "metrics": results,
+        "metrics_df": metrics_df,
+        "domain_stats": domain_stats,
+        "best_model": best_model,
+    }
+
+
+def main():
+    df = load_data()
+    out = train_and_evaluate(df)
+
+    for name, pipe in out["pipelines"].items():
         joblib.dump(pipe, MODELS_DIR / f"{name}.joblib")
-        print(f"{name}: {metrics}")
+        print(f"{name}: {out['metrics'][name]}")
 
     with open(MODELS_DIR / "metrics.json", "w") as f:
-        json.dump(results, f, indent=2)
+        json.dump(out["metrics"], f, indent=2)
 
-    # Fit weak-area domain stats on the training split only (avoid leakage) and persist them.
-    domain_stats = fit_domain_stats(X_train.join(y_train).drop(columns=[TARGET_COL]))
-    joblib.dump(domain_stats, MODELS_DIR / "domain_stats.joblib")
+    joblib.dump(out["domain_stats"], MODELS_DIR / "domain_stats.joblib")
 
-    best_model = max(results, key=lambda k: results[k]["f1"])
     with open(MODELS_DIR / "best_model.txt", "w") as f:
-        f.write(best_model)
-    print(f"\nBest model by F1: {best_model}")
+        f.write(out["best_model"])
+    print(f"\nBest model by F1: {out['best_model']}")
 
-    results_df = pd.DataFrame(results).T
-    results_df.to_csv(MODELS_DIR / "metrics_comparison.csv")
-    print("\n" + results_df.to_string())
+    out["metrics_df"].to_csv(MODELS_DIR / "metrics_comparison.csv")
+    print("\n" + out["metrics_df"].to_string())
 
 
 if __name__ == "__main__":

@@ -1,5 +1,6 @@
-# Large/generated artifacts — regenerate via README instructions
-data/*.csv
+# Large/generated artifacts — regenerate via README instructions.
+# data/*.csv is INTENTIONALLY tracked (needed for the deployed app's cold-start training
+# fallback — see app.py / src/train_models.py). Only the large pre-built model files are ignored.
 models/*.joblib
 models/metrics.json
 models/metrics_comparison.csv

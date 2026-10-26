@@ -2,6 +2,8 @@
 
 Run: streamlit run app.py
 """
+from pathlib import Path
+
 import joblib
 import pandas as pd
 import streamlit as st
@@ -9,6 +11,7 @@ import streamlit as st
 from src.data_loader import BINARY_COLS, CATEGORICAL_COLS, ID_COL, NUMERIC_COLS, TARGET_COL, load_data
 from src.weak_areas import DOMAINS, score_domains, weakest_domains_for_student
 from src.recommend import format_recommendations
+from src.train_models import train_and_evaluate
 
 st.set_page_config(page_title="LockIn — Student Risk & Recommendation", layout="wide")
 
@@ -16,27 +19,45 @@ MODELS_DIR = "models"
 FEATURE_COLS = CATEGORICAL_COLS + BINARY_COLS + NUMERIC_COLS
 
 
-@st.cache_resource
-def load_artifacts():
-    models = {
-        "Decision Tree": joblib.load(f"{MODELS_DIR}/decision_tree.joblib"),
-        "Random Forest": joblib.load(f"{MODELS_DIR}/random_forest.joblib"),
-        "Logistic Regression": joblib.load(f"{MODELS_DIR}/logistic_regression.joblib"),
-    }
-    metrics = pd.read_csv(f"{MODELS_DIR}/metrics_comparison.csv", index_col=0)
-    domain_stats = joblib.load(f"{MODELS_DIR}/domain_stats.joblib")
-    with open(f"{MODELS_DIR}/best_model.txt") as f:
-        best_model_key = f.read().strip()
-    return models, metrics, domain_stats, best_model_key
-
-
 @st.cache_data
 def load_full_data():
     return load_data()
 
 
-models, metrics, domain_stats, best_model_key = load_artifacts()
+@st.cache_resource
+def load_artifacts(_df: pd.DataFrame):
+    """Load pre-built models from models/ if present (fast local path). Otherwise
+    (e.g. a fresh deploy where the large joblib files aren't checked into git) train
+    them in-memory once and cache the result for the lifetime of this app instance."""
+    required = [
+        f"{MODELS_DIR}/decision_tree.joblib",
+        f"{MODELS_DIR}/random_forest.joblib",
+        f"{MODELS_DIR}/logistic_regression.joblib",
+        f"{MODELS_DIR}/metrics_comparison.csv",
+        f"{MODELS_DIR}/domain_stats.joblib",
+        f"{MODELS_DIR}/best_model.txt",
+    ]
+    if all(Path(p).exists() for p in required):
+        models = {
+            "Decision Tree": joblib.load(f"{MODELS_DIR}/decision_tree.joblib"),
+            "Random Forest": joblib.load(f"{MODELS_DIR}/random_forest.joblib"),
+            "Logistic Regression": joblib.load(f"{MODELS_DIR}/logistic_regression.joblib"),
+        }
+        metrics = pd.read_csv(f"{MODELS_DIR}/metrics_comparison.csv", index_col=0)
+        domain_stats = joblib.load(f"{MODELS_DIR}/domain_stats.joblib")
+        with open(f"{MODELS_DIR}/best_model.txt") as f:
+            best_model_key = f.read().strip()
+        return models, metrics, domain_stats, best_model_key
+
+    with st.spinner("First-time setup: training models on this deployment (~1 min)…"):
+        out = train_and_evaluate(_df)
+    label_map = {"decision_tree": "Decision Tree", "random_forest": "Random Forest", "logistic_regression": "Logistic Regression"}
+    models = {label_map[k]: v for k, v in out["pipelines"].items()}
+    return models, out["metrics_df"], out["domain_stats"], out["best_model"]
+
+
 df = load_full_data()
+models, metrics, domain_stats, best_model_key = load_artifacts(df)
 
 
 @st.cache_data

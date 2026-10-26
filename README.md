@@ -1,10 +1,17 @@
-# Student Academic Risk & Personalized Recommendation — Prototype
+# LockIn — Student Academic Risk & Personalized Recommendation
 
 A working end-to-end prototype: predicts a student's academic/dropout risk, diagnoses
 which of four domains are driving that risk ("weak areas"), and generates a personalized
 recommendation per weak area. Built to close the gap identified in `research_papers.md` —
 existing systems either predict risk without recommending anything, or recommend content
 on tiny, narrow datasets.
+
+**Live startup showcase site:** https://lakshya08hub.github.io/LockIn/
+**Repo:** https://github.com/Lakshya08hub/LockIn
+
+> The deployed site (`web/`, via GitHub Pages from the `gh-pages` branch) is the marketing
+> + product-shell showcase. The actual ML engine (`app.py`) runs locally via Streamlit —
+> see **How to run** below — and is linked from the Dashboard's "Run live analysis" button.
 
 ## Dataset
 `data/student_dropout_risk_2026.csv` — 100,000 students × 34 features, 15 nationalities

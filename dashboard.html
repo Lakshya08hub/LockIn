@@ -1,0 +1,99 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dashboard — LockIn</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%234f46e5%22/><text x=%2216%22 y=%2222%22 font-size=%2214%22 fill=%22white%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-weight=%22bold%22>LI</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<link rel="stylesheet" href="shared.css" />
+</head>
+<body data-page="dashboard" class="antialiased">
+<div id="nav-slot"></div>
+
+<div class="max-w-6xl mx-auto px-6 py-10">
+  <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+    <div>
+      <h1 class="text-2xl font-extrabold tracking-tight">Welcome back, Priya 👋</h1>
+      <p class="text-slate-500 text-sm mt-1">Greenfield College &middot; Semester 4 cohort</p>
+    </div>
+    <div class="flex gap-3">
+      <a href="http://localhost:8501" target="_blank" class="btn-secondary text-sm">⚙️ Run live analysis (Streamlit engine)</a>
+      <a href="report.html" class="btn-primary text-sm">+ New report</a>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+    <div class="card p-5">
+      <p class="text-xs text-slate-500 font-medium">Total students</p>
+      <p class="text-3xl font-extrabold mt-1">248</p>
+    </div>
+    <div class="card p-5">
+      <p class="text-xs text-slate-500 font-medium">High risk</p>
+      <p class="text-3xl font-extrabold mt-1 text-red-600">37</p>
+    </div>
+    <div class="card p-5">
+      <p class="text-xs text-slate-500 font-medium">Medium risk</p>
+      <p class="text-3xl font-extrabold mt-1 text-amber-600">64</p>
+    </div>
+    <div class="card p-5">
+      <p class="text-xs text-slate-500 font-medium">Avg. attendance</p>
+      <p class="text-3xl font-extrabold mt-1">82%</p>
+    </div>
+  </div>
+
+  <div class="card overflow-hidden">
+    <div class="p-5 border-b border-slate-200 flex items-center justify-between">
+      <h2 class="font-bold">Student roster</h2>
+      <input type="text" placeholder="Search students…" class="border border-slate-200 rounded-lg px-3 py-1.5 text-sm w-48" />
+    </div>
+    <table class="w-full text-sm">
+      <thead class="text-left text-slate-500 bg-slate-50">
+        <tr>
+          <th class="px-5 py-3 font-medium">Student</th>
+          <th class="px-5 py-3 font-medium">Risk</th>
+          <th class="px-5 py-3 font-medium">Weak area</th>
+          <th class="px-5 py-3 font-medium">GPA trend</th>
+          <th class="px-5 py-3 font-medium"></th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-100">
+        <tr class="hover:bg-slate-50">
+          <td class="px-5 py-4 font-medium">Aarav Sharma</td>
+          <td class="px-5 py-4"><span class="badge badge-high">High &middot; 78%</span></td>
+          <td class="px-5 py-4 text-slate-600">Attendance & Wellbeing</td>
+          <td class="px-5 py-4 text-red-500">↓ 3.4 → 2.6</td>
+          <td class="px-5 py-4"><a href="report.html" class="text-indigo-600 font-semibold">View →</a></td>
+        </tr>
+        <tr class="hover:bg-slate-50">
+          <td class="px-5 py-4 font-medium">Meera Iyer</td>
+          <td class="px-5 py-4"><span class="badge badge-medium">Medium &middot; 46%</span></td>
+          <td class="px-5 py-4 text-slate-600">Workload & Financial</td>
+          <td class="px-5 py-4 text-slate-500">→ 3.1 → 3.0</td>
+          <td class="px-5 py-4"><a href="report.html" class="text-indigo-600 font-semibold">View →</a></td>
+        </tr>
+        <tr class="hover:bg-slate-50">
+          <td class="px-5 py-4 font-medium">Rohan Verma</td>
+          <td class="px-5 py-4"><span class="badge badge-low">Low &middot; 12%</span></td>
+          <td class="px-5 py-4 text-slate-600">None flagged</td>
+          <td class="px-5 py-4 text-emerald-500">↑ 3.2 → 3.6</td>
+          <td class="px-5 py-4"><a href="report.html" class="text-indigo-600 font-semibold">View →</a></td>
+        </tr>
+        <tr class="hover:bg-slate-50">
+          <td class="px-5 py-4 font-medium">Sneha Reddy</td>
+          <td class="px-5 py-4"><span class="badge badge-high">High &middot; 81%</span></td>
+          <td class="px-5 py-4 text-slate-600">Academic Performance</td>
+          <td class="px-5 py-4 text-red-500">↓ 2.9 → 2.1</td>
+          <td class="px-5 py-4"><a href="report.html" class="text-indigo-600 font-semibold">View →</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div id="footer-slot"></div>
+<script src="components.js"></script>
+</body>
+</html>

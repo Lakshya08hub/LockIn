@@ -1,0 +1,114 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pricing — LockIn</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%234f46e5%22/><text x=%2216%22 y=%2222%22 font-size=%2214%22 fill=%22white%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-weight=%22bold%22>LI</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<link rel="stylesheet" href="shared.css" />
+</head>
+<body data-page="pricing" class="antialiased">
+<div id="nav-slot"></div>
+
+<section class="max-w-6xl mx-auto px-6 pt-20 pb-6 text-center">
+  <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight">Pricing that scales with your cohort</h1>
+  <p class="mt-4 text-slate-600 max-w-xl mx-auto">Start free. Upgrade when you're ready to track a full class or institution.</p>
+
+  <div class="mt-8 inline-flex items-center gap-1 bg-slate-100 rounded-full p-1" id="billing-toggle">
+    <button class="px-4 py-2 rounded-full text-sm font-semibold bg-white shadow-sm" data-billing="monthly">Monthly</button>
+    <button class="px-4 py-2 rounded-full text-sm font-semibold text-slate-500" data-billing="yearly">Yearly <span class="text-emerald-600">(save ~17%)</span></button>
+  </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-6 pb-24 grid md:grid-cols-3 gap-6 items-start">
+
+  <div class="card p-8">
+    <h3 class="font-bold text-lg">Free</h3>
+    <p class="text-sm text-slate-500 mt-1">For individual students & parents</p>
+    <div class="mt-6 flex items-baseline gap-1">
+      <span class="text-4xl font-extrabold">₹0</span>
+      <span class="text-slate-500">/forever</span>
+    </div>
+    <a href="signup.html?plan=free" class="btn-secondary w-full justify-center mt-6">Get started</a>
+    <ul class="mt-8 space-y-3 text-sm text-slate-600">
+      <li class="flex gap-2">✅ 1 student profile</li>
+      <li class="flex gap-2">✅ Risk score & weak-area summary</li>
+      <li class="flex gap-2">✅ Basic recommendations</li>
+      <li class="flex gap-2 text-slate-300">— No history / trends</li>
+      <li class="flex gap-2 text-slate-300">— No export</li>
+    </ul>
+  </div>
+
+  <div class="card p-8 border-2 border-indigo-600 relative">
+    <span class="absolute -top-3 left-8 badge badge-medium">Most popular</span>
+    <h3 class="font-bold text-lg">Pro</h3>
+    <p class="text-sm text-slate-500 mt-1">For tutors & small coaching centers</p>
+    <div class="mt-6 flex items-baseline gap-1">
+      <span class="text-4xl font-extrabold price-monthly">₹999</span>
+      <span class="text-4xl font-extrabold price-yearly hidden">₹833</span>
+      <span class="text-slate-500">/month</span>
+    </div>
+    <p class="text-xs text-slate-400 mt-1 yearly-note hidden">billed ₹9,999/year</p>
+    <a href="checkout.html?plan=pro" class="btn-primary w-full justify-center mt-6">Upgrade to Pro</a>
+    <ul class="mt-8 space-y-3 text-sm text-slate-600">
+      <li class="flex gap-2">✅ Up to 100 student profiles</li>
+      <li class="flex gap-2">✅ Full weak-area diagnosis</li>
+      <li class="flex gap-2">✅ Personalized recommendations</li>
+      <li class="flex gap-2">✅ CSV export</li>
+      <li class="flex gap-2">✅ Email risk alerts</li>
+    </ul>
+  </div>
+
+  <div class="card p-8">
+    <h3 class="font-bold text-lg">Institution</h3>
+    <p class="text-sm text-slate-500 mt-1">For schools & colleges</p>
+    <div class="mt-6 flex items-baseline gap-1">
+      <span class="text-4xl font-extrabold price-monthly">₹4,999</span>
+      <span class="text-4xl font-extrabold price-yearly hidden">₹4,166</span>
+      <span class="text-slate-500">/mo per 500 students</span>
+    </div>
+    <p class="text-xs text-slate-400 mt-1 yearly-note hidden">billed annually</p>
+    <a href="checkout.html?plan=institution" class="btn-secondary w-full justify-center mt-6">Talk to sales</a>
+    <ul class="mt-8 space-y-3 text-sm text-slate-600">
+      <li class="flex gap-2">✅ Unlimited student profiles</li>
+      <li class="flex gap-2">✅ Admin dashboard & bulk upload</li>
+      <li class="flex gap-2">✅ API access</li>
+      <li class="flex gap-2">✅ Dedicated support & SLA</li>
+      <li class="flex gap-2">✅ Custom onboarding</li>
+    </ul>
+  </div>
+
+</section>
+
+<section class="max-w-3xl mx-auto px-6 pb-24">
+  <h2 class="text-2xl font-extrabold tracking-tight text-center mb-8">Frequently asked questions</h2>
+  <div class="space-y-3">
+    <details class="card p-5"><summary class="font-semibold cursor-pointer">Is the Free plan really free forever?</summary><p class="text-sm text-slate-600 mt-2">Yes — one student profile, no credit card required, no trial expiry.</p></details>
+    <details class="card p-5"><summary class="font-semibold cursor-pointer">Can I switch plans later?</summary><p class="text-sm text-slate-600 mt-2">Yes, upgrade or downgrade anytime from Settings — billing is prorated.</p></details>
+    <details class="card p-5"><summary class="font-semibold cursor-pointer">Do you offer discounts for government schools?</summary><p class="text-sm text-slate-600 mt-2">Yes — contact sales for subsidized institutional pricing.</p></details>
+    <details class="card p-5"><summary class="font-semibold cursor-pointer">Is payment processing live on this demo?</summary><p class="text-sm text-slate-600 mt-2">No — this is a UI prototype for an academic project. The checkout flow is a non-functional mockup; no real payment is processed.</p></details>
+  </div>
+</section>
+
+<div id="footer-slot"></div>
+<script src="components.js"></script>
+<script>
+document.getElementById('billing-toggle').addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-billing]');
+  if (!btn) return;
+  const yearly = btn.dataset.billing === 'yearly';
+  document.querySelectorAll('#billing-toggle button').forEach(b => {
+    b.classList.toggle('bg-white', b === btn);
+    b.classList.toggle('shadow-sm', b === btn);
+    b.classList.toggle('text-slate-500', b !== btn);
+  });
+  document.querySelectorAll('.price-monthly').forEach(el => el.classList.toggle('hidden', yearly));
+  document.querySelectorAll('.price-yearly').forEach(el => el.classList.toggle('hidden', !yearly));
+  document.querySelectorAll('.yearly-note').forEach(el => el.classList.toggle('hidden', !yearly));
+});
+</script>
+</body>
+</html>

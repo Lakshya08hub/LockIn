@@ -1,0 +1,119 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Checkout — LockIn</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%234f46e5%22/><text x=%2216%22 y=%2222%22 font-size=%2214%22 fill=%22white%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-weight=%22bold%22>LI</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<link rel="stylesheet" href="shared.css" />
+</head>
+<body data-page="checkout" class="antialiased">
+<div id="nav-slot"></div>
+
+<div class="max-w-5xl mx-auto px-6 py-16">
+  <div class="mb-2 text-xs font-semibold uppercase tracking-widest text-amber-600 bg-amber-50 inline-block px-3 py-1 rounded-full">
+    ⚠️ Demo mode — no real payment will be processed
+  </div>
+  <h1 class="text-3xl font-extrabold tracking-tight mt-4 mb-10">Complete your upgrade</h1>
+
+  <div id="checkout-view" class="grid md:grid-cols-5 gap-8">
+
+    <div class="md:col-span-3 card p-8">
+      <h2 class="font-bold text-lg mb-6">Payment details</h2>
+
+      <div class="flex gap-3 mb-6" id="pay-tabs">
+        <button data-tab="card" class="pay-tab btn-secondary !py-2 !px-4 text-sm">💳 Card</button>
+        <button data-tab="upi" class="pay-tab btn-secondary !py-2 !px-4 text-sm">📱 UPI</button>
+      </div>
+
+      <div id="pay-card" class="space-y-4">
+        <div>
+          <label class="text-sm font-medium block mb-1">Card number</label>
+          <input type="text" placeholder="4242 4242 4242 4242" maxlength="19" class="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm" />
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="text-sm font-medium block mb-1">Expiry</label>
+            <input type="text" placeholder="MM/YY" class="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm" />
+          </div>
+          <div>
+            <label class="text-sm font-medium block mb-1">CVV</label>
+            <input type="text" placeholder="•••" maxlength="3" class="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm" />
+          </div>
+        </div>
+        <div>
+          <label class="text-sm font-medium block mb-1">Name on card</label>
+          <input type="text" placeholder="Aarav Sharma" class="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm" />
+        </div>
+      </div>
+
+      <div id="pay-upi" class="space-y-4 hidden">
+        <label class="text-sm font-medium block mb-1">UPI ID</label>
+        <input type="text" placeholder="yourname@upi" class="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm" />
+        <p class="text-xs text-slate-400">You'll get a payment request on your UPI app to approve.</p>
+      </div>
+
+      <button id="pay-btn" class="btn-primary w-full justify-center mt-8">Pay <span id="pay-amount">₹999</span></button>
+      <p class="text-xs text-slate-400 text-center mt-4">🔒 This is a UI mockup. No card data is collected or transmitted.</p>
+    </div>
+
+    <div class="md:col-span-2 card p-8 h-fit">
+      <h2 class="font-bold text-lg mb-4">Order summary</h2>
+      <div class="flex justify-between text-sm mb-2">
+        <span class="text-slate-600" id="plan-name">Pro plan</span>
+        <span class="font-semibold" id="plan-price">₹999</span>
+      </div>
+      <div class="flex justify-between text-sm mb-2 text-slate-500">
+        <span>GST (18%)</span>
+        <span id="plan-gst">₹179.82</span>
+      </div>
+      <div class="border-t border-slate-200 mt-4 pt-4 flex justify-between font-bold">
+        <span>Total due today</span>
+        <span id="plan-total">₹1,178.82</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="success-view" class="hidden text-center py-20">
+    <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-3xl mx-auto mb-6">✓</div>
+    <h2 class="text-2xl font-extrabold mb-2">Payment successful (simulated)</h2>
+    <p class="text-slate-600 mb-8">Your Pro plan is now active. This confirmation is part of a UI prototype — no real transaction occurred.</p>
+    <a href="dashboard.html" class="btn-primary">Go to dashboard →</a>
+  </div>
+</div>
+
+<div id="footer-slot"></div>
+<script src="components.js"></script>
+<script>
+  const params = new URLSearchParams(location.search);
+  const plan = params.get('plan') || 'pro';
+  const plans = {
+    pro: { name: 'Pro plan — ₹999/mo', price: 999 },
+    institution: { name: 'Institution plan — ₹4,999/mo', price: 4999 },
+  };
+  const selected = plans[plan] || plans.pro;
+  document.getElementById('plan-name').textContent = selected.name;
+  document.getElementById('plan-price').textContent = '₹' + selected.price.toLocaleString('en-IN');
+  const gst = +(selected.price * 0.18).toFixed(2);
+  const total = +(selected.price + gst).toFixed(2);
+  document.getElementById('plan-gst').textContent = '₹' + gst.toLocaleString('en-IN');
+  document.getElementById('plan-total').textContent = '₹' + total.toLocaleString('en-IN');
+  document.getElementById('pay-amount').textContent = '₹' + total.toLocaleString('en-IN');
+
+  document.getElementById('pay-tabs').addEventListener('click', (e) => {
+    const btn = e.target.closest('.pay-tab');
+    if (!btn) return;
+    document.getElementById('pay-card').classList.toggle('hidden', btn.dataset.tab !== 'card');
+    document.getElementById('pay-upi').classList.toggle('hidden', btn.dataset.tab !== 'upi');
+  });
+
+  document.getElementById('pay-btn').addEventListener('click', () => {
+    document.getElementById('checkout-view').classList.add('hidden');
+    document.getElementById('success-view').classList.remove('hidden');
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+# Large/generated artifacts — regenerate via README instructions
+data/*.csv
+models/*.joblib
+models/metrics.json
+models/metrics_comparison.csv
+models/best_model.txt
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db

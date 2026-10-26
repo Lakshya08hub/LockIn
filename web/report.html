@@ -1,0 +1,107 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Student Report — LockIn</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%234f46e5%22/><text x=%2216%22 y=%2222%22 font-size=%2214%22 fill=%22white%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-weight=%22bold%22>LI</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<link rel="stylesheet" href="shared.css" />
+</head>
+<body data-page="dashboard" class="antialiased">
+<div id="nav-slot"></div>
+
+<div class="max-w-5xl mx-auto px-6 py-10">
+  <a href="dashboard.html" class="text-sm text-slate-500 hover:text-slate-900">&larr; Back to dashboard</a>
+
+  <div class="flex flex-wrap items-center justify-between gap-4 mt-4 mb-8">
+    <div class="flex items-center gap-4">
+      <div class="w-14 h-14 rounded-full brand-gradient flex items-center justify-center text-white font-bold text-xl">AS</div>
+      <div>
+        <h1 class="text-2xl font-extrabold tracking-tight">Aarav Sharma</h1>
+        <p class="text-slate-500 text-sm">STEM &middot; Semester 4 &middot; Greenfield College</p>
+      </div>
+    </div>
+    <div class="flex gap-3">
+      <button class="btn-secondary text-sm">📤 Export PDF</button>
+      <button class="btn-secondary text-sm">🔗 Share with parent</button>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-6 mb-8">
+    <div class="card p-6 md:col-span-1">
+      <p class="text-xs text-slate-500 font-medium mb-3">Overall risk</p>
+      <div class="relative w-32 h-32 mx-auto">
+        <svg viewBox="0 0 36 36" class="w-32 h-32 -rotate-90">
+          <circle cx="18" cy="18" r="15.9" fill="none" stroke="#f1f5f9" stroke-width="3.5"/>
+          <circle cx="18" cy="18" r="15.9" fill="none" stroke="#dc2626" stroke-width="3.5" stroke-dasharray="78 100" stroke-linecap="round"/>
+        </svg>
+        <div class="absolute inset-0 flex flex-col items-center justify-center">
+          <span class="text-2xl font-extrabold text-red-600">78%</span>
+          <span class="text-[10px] text-slate-400 uppercase tracking-wide">risk</span>
+        </div>
+      </div>
+      <p class="text-center mt-4"><span class="badge badge-high">High risk — act this week</span></p>
+    </div>
+
+    <div class="card p-6 md:col-span-2">
+      <p class="text-xs text-slate-500 font-medium mb-4">Diagnosed weak areas</p>
+      <div class="space-y-4">
+        <div class="flex items-center gap-4">
+          <span class="text-2xl">📅</span>
+          <div class="flex-1">
+            <p class="font-semibold text-sm">Attendance & Engagement</p>
+            <div class="h-1.5 rounded-full bg-slate-100 mt-1.5 overflow-hidden"><div class="h-full bg-amber-500" style="width:82%"></div></div>
+          </div>
+        </div>
+        <div class="flex items-center gap-4">
+          <span class="text-2xl">💛</span>
+          <div class="flex-1">
+            <p class="font-semibold text-sm">Wellbeing & Stress</p>
+            <div class="h-1.5 rounded-full bg-slate-100 mt-1.5 overflow-hidden"><div class="h-full bg-amber-500" style="width:64%"></div></div>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 opacity-40">
+          <span class="text-2xl">📘</span>
+          <div class="flex-1">
+            <p class="font-semibold text-sm">Academic Performance</p>
+            <div class="h-1.5 rounded-full bg-slate-100 mt-1.5 overflow-hidden"><div class="h-full bg-emerald-500" style="width:22%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card p-6 mb-8">
+    <p class="text-xs text-slate-500 font-medium mb-4">Why this student is flagged</p>
+    <ul class="grid md:grid-cols-2 gap-3 text-sm">
+      <li class="flex gap-2">⚠️ <span>Missed 6 of the last 10 assignment deadlines</span></li>
+      <li class="flex gap-2">⚠️ <span>Attendance dropped to 61% this semester</span></li>
+      <li class="flex gap-2">⚠️ <span>Self-reported stress level 8/10</span></li>
+      <li class="flex gap-2">⚠️ <span>Sleep averaging 5.2 hours/night</span></li>
+    </ul>
+  </div>
+
+  <div>
+    <p class="text-xs text-slate-500 font-medium mb-4">Recommended actions</p>
+    <div class="grid md:grid-cols-2 gap-4">
+      <div class="card p-5">
+        <p class="font-semibold text-sm mb-2">📅 Attendance & Engagement</p>
+        <p class="text-sm text-slate-600 mb-4">Set calendar reminders for assignment deadlines — missed deadlines are the biggest driver here.</p>
+        <button class="btn-secondary text-xs !py-1.5 !px-3">Mark as assigned</button>
+      </div>
+      <div class="card p-5">
+        <p class="font-semibold text-sm mb-2">💛 Wellbeing & Stress</p>
+        <p class="text-sm text-slate-600 mb-4">Connect with the student wellbeing/counseling service — stress and sleep levels suggest burnout risk.</p>
+        <button class="btn-secondary text-xs !py-1.5 !px-3">Mark as assigned</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="footer-slot"></div>
+<script src="components.js"></script>
+</body>
+</html>
